@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:141:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\server\server_add.html";i:1550202419;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -41,7 +42,7 @@
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 					class="c-red">*</span>服务器名称：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.name}"
+					<input type="text" class="input-text" value="<?php echo $info['name']; ?>"
 						placeholder="" id="name" name="name">
 				</div>
 			</div>
@@ -49,13 +50,13 @@
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 					class="c-red">*</span>排序：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.sort}" placeholder="" id="sort" name="sort">
+					<input type="text" class="input-text" value="<?php echo $info['sort']; ?>" placeholder="" id="sort" name="sort">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" >备注：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.remark}"
+					<input type="text" class="input-text" value="<?php echo $info['remark']; ?>"
 						placeholder="" id="remark" name="remark">
 				</div>
 			</div>			
@@ -63,7 +64,7 @@
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 					class="c-red">*</span>微信appId：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.appId}"
+					<input type="text" class="input-text" value="<?php echo $info['appId']; ?>"
 						placeholder="" id="appId" name="appId">
 				</div>
 			</div>				
@@ -71,7 +72,7 @@
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 					class="c-red">*</span>微信appSecret：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.appSecret}"
+					<input type="text" class="input-text" value="<?php echo $info['appSecret']; ?>"
 						placeholder="" id="appSecret" name="appSecret">
 				</div>
 			</div>
@@ -79,7 +80,7 @@
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 					class="c-red">*</span>公网ip：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.public_ip}"
+					<input type="text" class="input-text" value="<?php echo $info['public_ip']; ?>"
 						placeholder="" id="public_ip" name="public_ip">
 				</div>
 			</div>
@@ -87,7 +88,7 @@
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 					class="c-red">*</span>内网ip：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.inner_ip}"
+					<input type="text" class="input-text" value="<?php echo $info['inner_ip']; ?>"
 						placeholder="" id="inner_ip" name="inner_ip">
 				</div>
 			</div>
@@ -95,14 +96,14 @@
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 					class="c-red">*</span>百度统计id：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.baidu_id}"
+					<input type="text" class="input-text" value="<?php echo $info['baidu_id']; ?>"
 						placeholder="" id="baidu_id" name="baidu_id">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;"> 返回广告url：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.back_url}"
+					<input type="text" class="input-text" value="<?php echo $info['back_url']; ?>"
 						placeholder="" id="back_url" name="back_url">
 				</div>
 			</div>
@@ -110,46 +111,46 @@
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 						class="c-red">*</span>落地模式：</label>
 				  <div class="radio-box" style="margin-left:15px;">
-				    <input type="radio" id="model1" name="model" value=1 {if condition="$info.model eq 1"}checked{/if}>
+				    <input type="radio" id="model1" name="model" value=1 <?php if($info['model'] == 1): ?>checked<?php endif; ?>>
 				    <label for="model1">手动</label>
 				  </div>
 				  <div class="radio-box">
-				    <input type="radio" id="model2" name="model" value=2  {if condition="$info.model eq 2"}checked{/if}>
+				    <input type="radio" id="model2" name="model" value=2  <?php if($info['model'] == 2): ?>checked<?php endif; ?>>
 				    <label for="model2">自动</label>
 				  </div>
 			  </div>		
 			  <div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;">域名①：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.domain1}"
+					<input type="text" class="input-text" value="<?php echo $info['domain1']; ?>"
 						placeholder="" id="domain1" name="domain1">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;">域名②：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.domain2}"
+					<input type="text" class="input-text" value="<?php echo $info['domain2']; ?>"
 						placeholder="" id="domain2" name="domain2">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;">域名③：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.domain3}"
+					<input type="text" class="input-text" value="<?php echo $info['domain3']; ?>"
 						placeholder="" id="domain3" name="domain3">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;">域名④：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.domain4}"
+					<input type="text" class="input-text" value="<?php echo $info['domain4']; ?>"
 						placeholder="" id="domain4" name="domain4">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;">域名⑤：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.domain5}"
+					<input type="text" class="input-text" value="<?php echo $info['domain5']; ?>"
 						placeholder="" id="domain5" name="domain5">
 				</div>
 			</div>
@@ -172,7 +173,7 @@
 				   <button class="btn btn-default radius" onclick="layer_close()"><i class="Hui-iconfont">&#xe66b;</i>取消</button>		
 				</div>
 			</div>
-			<input type="hidden" id="id" name="id" value="{$info.id}" />
+			<input type="hidden" id="id" name="id" value="<?php echo $info['id']; ?>" />
 		</form>
 	</article>
 
@@ -361,7 +362,7 @@
 							return false;
 						}
 						var options = {
-							url : "{:url('server/server_submit')}",
+							url : "<?php echo url('server/server_submit'); ?>",
 							dataType : "json",
 							type : "post",
 							clearForm : true,
