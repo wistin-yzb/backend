@@ -41,10 +41,10 @@
 			<div class="text-c">
 			    服务器状态：
 			    <span class="select-box inline">
-					<select id="status" name="status" class="select">
-						<option value="0" {if condition="$status eq 0"}selected{/if}>全部</option>
-						<option value="1" {if condition="$status eq 1"}selected{/if}>正常</option>
-						<option value="2" {if condition="$status eq 2"}selected{/if}>关闭</option>
+					<select id="is_active" name="is_active" class="select">
+						<option value="0" {if condition="$is_active eq 0"}selected{/if}>全部</option>
+						<option value="1" {if condition="$is_active eq 1"}selected{/if}>正常</option>
+						<option value="2" {if condition="$is_active eq 2"}selected{/if}>关闭</option>
 					</select>
 				</span>
 				<input type="text" class="input-text" style="width: 250px" placeholder="服务器名称"
@@ -57,7 +57,7 @@
 		</form>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l"> <a href="javascript:;"
-				onclick="server_add('添加服务器','{:url('server/server_add')}','750','700')"
+				onclick="server_add('添加服务器','{:url('server/server_add')}?line_id={$line_id}','750','700')"
 				class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>
 					添加服务器</a>
 			</span> <span class="r">共有数据：<strong>{$filter.total|default=0}</strong>
@@ -88,31 +88,31 @@
 					<!-- {volist name="list" id="vo"} -->
 					<tr class="text-c">
 						<td class="td-status">
-						      {if condition="$vo['model']==1"}
+						      {if condition="$vo['d1_model']==1"}
 						       <a class="label radius" style="background-color: #5a98de;" href="javascript:void(0)">手动</a>
 						       {else /}						       
 						        <a class="label radius" style="background-color: #5EB95E;" href="javascript:void(0)">自动</a>
 						      {/if}
 						</td>
 						<td>{$vo.name}</td>		
-						<td>{$vo.remark}</td>	
+						<td>{$vo.desc}</td>	
 						<td>{$vo.public_ip}</td>
 						<td>{$vo.sort}</td>
-						<td>{$vo.domain1}</td>
-						<td>{$vo.domain2}</td>
-						<td>{$vo.domain3}</td>
-						<td>{$vo.domain4}</td>
-						<td>{$vo.domain5}</td>										
+						<td>{$vo.d1}</td>
+						<td>{$vo.d2}</td>
+						<td>{$vo.d3}</td>
+						<td>{$vo.d4}</td>
+						<td>{$vo.d5}</td>										
 						<td>{$vo.update_time?$vo.update_time:'-'}</td>						
 						<td class="td-status">
-						      {if condition="$vo['status']==1"}
+						      {if condition="$vo['is_active']==1"}
 						       <span class="label label-success radius">已启用</span>
 						       {else /}
 						       <span class="label label-defaunt radius">已停用</span>
 						      {/if}
 						</td>
 						<td class="td-manage">			
-						     {if condition="$vo['status']==2"} <a style="text-decoration: none"
+						     {if condition="$vo['is_active']==2"} <a style="text-decoration: none"
 								onClick="server_start(this,'{$vo.id}')" href="javascript:;" title="启用">
 								<i class="Hui-iconfont">&#xe6e1;</i></a>
 							  {else /}
@@ -165,7 +165,7 @@
 				type: 'POST',
 				url: '{:url("server/switch_state")}',
 				dataType: 'json',
-				data:{"id":id,"status":1},
+				data:{"id":id,"is_active":1},
 				success: function(data){					
 					if(data==1){
 						$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="server_stop(this,'+id+')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a>');
@@ -189,7 +189,7 @@
 				type: 'POST',
 				url: '{:url("server/switch_state")}',
 				dataType: 'json',
-				data:{"id":id,"status":2},
+				data:{"id":id,"is_active":2},
 				success: function(data){
 					if(data==1){
 						$(obj).parents("tr").find(".td-manage").prepend('<a style="text-decoration:none" onClick="server_start(this,'+id+')" href="javascript:;" title="启用"><i class="Hui-iconfont">&#xe6e1;</i></a>');
@@ -216,8 +216,39 @@
 		layer_show(title,url,w,h);
 	}
 	/*服务器-同步*/
-	function server_sync(){
-		layer.alert('同步成功！');return false;
+	function server_sync(id){
+	        var index = layer.load(0, {time: 100 * 1000});
+	        $.ajax({
+	            url: "{:url('server/server_info')}",
+	            type: 'POST',
+	            dataType: 'json',
+	            data: {id: id},
+	            success: function (data) {
+			               console.log(data);
+			               $.ajax({
+			   	            url: 'http://' + data.public_ip + '/sync.php',
+			   	            type: 'POST',
+			   	            dataType: 'json',
+			   	            data: {data: data},
+			   	            success: function (returnjson) {
+			   	                layer.close(index);
+			   	                if (0 === returnjson.error) {
+			   	                    layer.alert('同步成功');
+			   	                } else {
+			   	                    layer.alert(returnjson.msg);
+			   	                }
+			   	            },
+			   	            error: function () {
+			   	                layer.close(index);
+			   	                layer.alert('同步失败');
+			   	            }
+			   	        });
+	            },
+	            error: function () {
+	                layer.close(index);
+	                layer.alert('抓取数据失败');
+	            }
+	        });	       
 	}
 	/*服务器-删除*/
 	function server_del(obj,id){

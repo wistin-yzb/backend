@@ -14,12 +14,13 @@ class Server extends controller {
 	public function  server_list(){
 		$post = input ( 'post.' );
 		$n = input('get.n')?input('get.n'):input('post.n');
-		$status = @$post ['status'] ? trim ( @$post ['status'] ) : 0;
+		$line_id = input('get.line_id');
+		$is_active = @$post ['is_active'] ? trim ( @$post ['is_active'] ) : 0;
 		$keywords = @$post ['keywords'] ? trim ( @$post ['keywords'] ) : '';
 		$view = new View ();
 		$where = "`id`>0 ";
-		if ($status!=0) {
-			$where .= "and (`status`=$status)";
+		if ($is_active!=0) {
+			$where .= "and (`is_active`=$is_active)";
 		}
 		if ($keywords) {
 			$where .= "and (`name` like '%$keywords%' )";
@@ -38,7 +39,8 @@ class Server extends controller {
 		];
 		$view->filter = $filter;
 		$view->n = $n;
-		$view->status = $status;
+		$view->line_id = $line_id;
+		$view->is_active = $is_active;
 		return $view->fetch ( 'server/server_list' );
 	}
 	
@@ -52,20 +54,21 @@ class Server extends controller {
 			$info = [
 					"id" => 0,
 					'name' => '',
+					'line_id'=>input ( 'get.line_id' ),
 					'sort' => '',
-					'remark' => '',
-					'appId' => '',
-					'appSecret' => '',
+					'desc' => '',
+					'app_id' => '',
+					'app_secret' => '',
 					'public_ip' => '',
-					'inner_ip' => '',
+					'private_ip' => '',
 					'baidu_id'=>'',
 					'back_url'=>'',
-					'model'=>1,
-					'domain1'=>'',
-					'domain2'=>'',
-					'domain3'=>'',
-					'domain4'=>'',
-					'domain5'=>'',
+					'd1_model'=>1,
+					'd1'=>'',
+					'd2'=>'',
+					'd3'=>'',
+					'd4'=>'',
+					'd5'=>'',
 			];
 			$view->info = $info;
 		}
@@ -76,21 +79,22 @@ class Server extends controller {
 		$post = input ( 'post.' );
 		$data = [
 				"name" => $post ['name'],
+				"line_id" => $post ['line_id'],
 				"sort" => $post ['sort'],
-				"remark" => $post ['remark'],
-				"appId" => $post ['appId'],
-				"appSecret" => $post ['appSecret'],
+				"desc" => $post ['desc'],
+				"app_id" => $post ['app_id'],
+				"app_secret" => $post ['app_secret'],
 				"public_ip" => $post ['public_ip'],
-				"inner_ip" => $post ['inner_ip'],
+				"private_ip" => $post ['private_ip'],
 				"baidu_id" => $post ['baidu_id'],
 				"back_url" => $post ['back_url'],
-				"model" => $post ['model'],
-				"domain1" => $post ['domain1'],
-				"domain2" => $post ['domain2'],
-				"domain3" => $post ['domain3'],
-				"domain4" => $post ['domain4'],
-				"domain5" => $post ['domain5'],
-				"status" => 1,
+				"d1_model" => $post ['d1_model'],
+				"d1" => $post ['d1'],
+				"d2" => $post ['d2'],
+				"d3" => $post ['d3'],
+				"d4" => $post ['d4'],
+				"d5" => $post ['d5'],
+				"is_active" => 1,
 				"update_time" => time ()
 		];
 		if ($post ['id'] > 0) {
@@ -110,11 +114,26 @@ class Server extends controller {
 			exit ( json_encode ( - 1 ) );
 		}
 		$ret = db ( 'server' )->where ( 'id', $post ['id'] )->update ( [
-				'status' => $post ['status']
+				'is_active' => $post ['is_active']
 		] );
 		if ($ret) {
 			exit ( json_encode ( 1 ) );
 		}
 		exit ( json_encode ( - 1 ) );
 	}
+	
+	public function  server_info(){
+		$post = input ( 'post.' );
+		if (! $post) {
+			exit ( json_encode ( - 1 ) );
+		}
+		$ret = db ( 'server' )->where ( 'id', $post ['id'] )->find ();
+		if ($ret) {
+			if($ret['update_time'])$ret['update_time'] = date('Y-m-d H:i:s',$ret['update_time']);
+			$ret['is_sync'] = 0;//是否同步,可去掉
+			exit ( json_encode ( $ret) );
+		}
+		exit ( json_encode ( - 1 ) );
+	}
+	
 }

@@ -55,24 +55,24 @@
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" >备注：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.remark}"
-						placeholder="" id="remark" name="remark">
+					<input type="text" class="input-text" value="{$info.desc}"
+						placeholder="" id="desc" name="desc">
 				</div>
 			</div>			
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 					class="c-red">*</span>微信appId：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.appId}"
-						placeholder="" id="appId" name="appId">
+					<input type="text" class="input-text" value="{$info.app_id}"
+						placeholder="" id="app_id" name="app_id">
 				</div>
 			</div>				
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 					class="c-red">*</span>微信appSecret：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.appSecret}"
-						placeholder="" id="appSecret" name="appSecret">
+					<input type="text" class="input-text" value="{$info.app_secret}"
+						placeholder="" id="app_secret" name="app_secret">
 				</div>
 			</div>
 			<div class="row cl">
@@ -87,8 +87,8 @@
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 					class="c-red">*</span>内网ip：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.inner_ip}"
-						placeholder="" id="inner_ip" name="inner_ip">
+					<input type="text" class="input-text" value="{$info.private_ip}"
+						placeholder="" id="private_ip" name="private_ip">
 				</div>
 			</div>
 			<div class="row cl">
@@ -110,47 +110,47 @@
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;" ><span
 						class="c-red">*</span>落地模式：</label>
 				  <div class="radio-box" style="margin-left:15px;">
-				    <input type="radio" id="model1" name="model" value=1 {if condition="$info.model eq 1"}checked{/if}>
-				    <label for="model1">手动</label>
+				    <input type="radio" id="d1_model1" name="d1_model" value=1 {if condition="$info.d1_model eq 1"}checked{/if}>
+				    <label for="d1_model1">手动</label>
 				  </div>
 				  <div class="radio-box">
-				    <input type="radio" id="model2" name="model" value=2  {if condition="$info.model eq 2"}checked{/if}>
-				    <label for="model2">自动</label>
+				    <input type="radio" id="d1_model2" name="d1_model" value=2  {if condition="$info.d1_model eq 2"}checked{/if}>
+				    <label for="d1_model2">自动</label>
 				  </div>
 			  </div>		
 			  <div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;">域名①：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.domain1}"
-						placeholder="" id="domain1" name="domain1">
+					<input type="text" class="input-text" value="{$info.d1}"
+						placeholder="" id="d1" name="d1">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;">域名②：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.domain2}"
-						placeholder="" id="domain2" name="domain2">
+					<input type="text" class="input-text" value="{$info.d2}"
+						placeholder="" id="d2" name="d2">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;">域名③：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.domain3}"
-						placeholder="" id="domain3" name="domain3">
+					<input type="text" class="input-text" value="{$info.d3}"
+						placeholder="" id="d3" name="d3">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;">域名④：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.domain4}"
-						placeholder="" id="domain4" name="domain4">
+					<input type="text" class="input-text" value="{$info.d4}"
+						placeholder="" id="d4" name="d4">
 				</div>
 			</div>
 			<div class="row cl">
 				<label class="form-label col-xs-3 col-sm-2" style="text-align:right;">域名⑤：</label>
 				<div class="formControls col-xs-8 col-sm-9">
-					<input type="text" class="input-text" value="{$info.domain5}"
-						placeholder="" id="domain5" name="domain5">
+					<input type="text" class="input-text" value="{$info.d5}"
+						placeholder="" id="d5" name="d5">
 				</div>
 			</div>
 			<div class="row cl">
@@ -173,6 +173,7 @@
 				</div>
 			</div>
 			<input type="hidden" id="id" name="id" value="{$info.id}" />
+			<input type="hidden" id="line_id" name="line_id" value="{$info.line_id}" />
 		</form>
 	</article>
 
@@ -309,16 +310,16 @@
 					sort : {
 						required : true,
 					},
-					appId : {
+					app_id : {
 						required : true,
 					},
-					appSecret : {
+					app_secret : {
 						required : true,
 					},
 					public_ip : {
 						required : true,
 					},
-					inner_ip : {
+					private_ip : {
 						required : true,
 					},
 					baidu_id : {
@@ -333,16 +334,16 @@
 					sort : {
 						required : "请输入排序数字",
 					},
-					appId : {
+					app_id : {
 						required : "请输入微信appId",
 					},
-					appSecret : {
+					app_secret : {
 						required : "请输入微信appSecret",
 					},
 					public_ip : {
 						required : "请输入公网ip",
 					},
-					inner_ip : {
+					private_ip : {
 						required : "请输入内网ip",
 					},
 					baidu_id : {
@@ -352,42 +353,33 @@
 				onkeyup : false,
 				focusCleanup : true,
 				success : 'valid',
-			});
-			//submit form
-			$('#form-server-add').on(
-					'submit',
-					function() {						
-						if (!$('#name').val()) {
-							return false;
-						}
-						var options = {
-							url : "{:url('server/server_submit')}",
-							dataType : "json",
-							type : "post",
-							clearForm : true,
-							resetForm : true,
-							timeout : 3000,
-							success : ResponseAfterSuccess,
-							error : function() {
-								alert('error!');
-							},
-						};
-						$('#form-server-add').ajaxSubmit(options);
-					});			      		    
+				submitHandler: function (form) {
+	                var data = new FormData($(form)[0]);
+	                $.ajax({
+	                    type: 'POST',
+	                    dataType: 'json',
+	                    processData: false, // 告诉jquery不要处理数据
+	                    contentType: false, // 告诉jquery不要设置contentType
+	                    data: data,
+	                    url: '{:url("server/server_submit")}',
+	                    success: function(json, textStatus, xhr) {
+	                            if (1===json) {
+	                                layer.alert('操作成功', function(){	                                
+	                                    removeIframe();	 	                                    
+	                                    parent.location.reload(); 
+	                                    layer_close();                           
+	                                });
+	                            } else {
+	                                layer.alert('操作失败');
+	                            }
+	                    },
+	                    error: function(xhr, textStatus, errorThrown) {
+	                        layer.alert('操作失败！');
+	                    }
+	                });
+	            }
+			});      		    
 		});
-		//form submit callback
-		function ResponseAfterSuccess(data) {
-			if (data == 1) {
-				var index = parent.layer.getFrameIndex(window.name);
-				parent.$('.btn-refresh').click();
-				parent.layer.close(index);
-			} else {
-				layer.msg('提交失败!', {
-					icon : 5,
-					time : 1000
-				});
-			}
-		}
 	</script>
 	<!--/请在上方写此页面业务相关的脚本-->
 </body>

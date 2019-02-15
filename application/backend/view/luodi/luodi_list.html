@@ -50,7 +50,7 @@
 		</form>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l"> <a href="javascript:;"
-				onclick="luodi_add('添加域名','{:url('luodi/luodi_add')}','700','500')"
+				onclick="luodi_add('添加域名','{:url('luodi/luodi_add')}?line_id={$line_id}','700','500')"
 				class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>
 					添加域名</a>
 			</span> <span class="r">共有数据：<strong>{$filter.total|default=0}</strong>

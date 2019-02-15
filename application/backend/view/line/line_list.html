@@ -96,9 +96,9 @@
 								<a title="删除" href="javascript:;" onclick="line_del(this,'{$vo.id}')"
 								class="ml-5" style="text-decoration: none">
 								<i class="Hui-iconfont">&#xe6e2;</i></a>
-								<a data-title="服务器列表" href="javascript:;" data-href="{:url('server/server_list')}?n={$vo.name}" onclick="Hui_admin_tab(this)"
+								<a data-title="服务器列表" href="javascript:;" data-href="{:url('server/server_list')}?n={$vo.name}&line_id={$vo.id}" onclick="Hui_admin_tab(this)"
 								class="ml-5" style="text-decoration: none">服务器</a>
-								<a data-title="落地域名列表" href="javascript:;" data-href="{:url('luodi/luodi_list')}?n={$vo.name}" onclick="Hui_admin_tab(this)"
+								<a data-title="落地域名列表" href="javascript:;" data-href="{:url('luodi/luodi_list')}?n={$vo.name}&line_id={$vo.id}" onclick="Hui_admin_tab(this)"
 								class="ml-5" style="text-decoration: none">落地</a>
 						</td>
 					</tr>

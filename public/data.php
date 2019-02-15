@@ -1,0 +1,23 @@
+<?php
+    return array (
+  'id' => '3',
+  'name' => '机器3',
+  'desc' => '备注3',
+  'line_id' => '13',
+  'public_ip' => '39.108.211.188',
+  'private_ip' => '32.2.23.45',
+  'app_id' => 'wx4329563489598',
+  'app_secret' => '3478fljgfdfhew9873498090',
+  'baidu_id' => '21qieue39288390323048049439747230',
+  'back_url' => 'http://oak.bignongye.com',
+  'd1_model' => '1',
+  'sort' => '16',
+  'd1' => 'domain1.com',
+  'd2' => 'domain2.com',
+  'd3' => 'domain3.com',
+  'd4' => 'domain4.com',
+  'd5' => 'domain5.com',
+  'is_active' => '1',
+  'update_time' => '2019-02-15 17:13:08',
+  'is_sync' => '0',
+);

@@ -14,6 +14,7 @@ class Luodi extends controller {
 	public function  luodi_list(){
 		$post = input ( 'post.' );
 		$n = input('get.n')?input('get.n'):input('post.n');
+		$line_id = input('get.line_id');
 		$keywords = @$post ['keywords'] ? trim ( @$post ['keywords'] ) : '';
 		$view = new View ();
 		$where = "`id`>0 ";
@@ -34,6 +35,7 @@ class Luodi extends controller {
 		];
 		$view->filter = $filter;
 		$view->n = $n;
+		$view->line_id = $line_id;
 		return $view->fetch ( 'luodi/luodi_list' );
 	}
 	
@@ -46,6 +48,7 @@ class Luodi extends controller {
 		} else {
 			$info = [
 					"id" => 0,
+					'line_id'=>input ( 'get.line_id' ),
 					'domain' => '',
 					'remark' => '',
 					'ip' => '',
@@ -60,6 +63,7 @@ class Luodi extends controller {
 		$post = input ( 'post.' );
 		$data = [
 				"domain" => $post ['domain'],
+				"line_id" => $post ['line_id'],
 				"remark" => $post ['remark'],
 				"ip" => $post ['ip'],
 				"status" => $post ['status'],

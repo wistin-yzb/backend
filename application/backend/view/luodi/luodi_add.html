@@ -84,6 +84,7 @@
 				</div>
 			</div>
 			<input type="hidden" id="id" name="id" value="{$info.id}" />
+			<input type="hidden" id="line_id" name="line_id" value="{$info.line_id}" />
 		</form>
 	</article>
 
@@ -136,42 +137,33 @@
 				onkeyup : false,
 				focusCleanup : true,
 				success : 'valid',
+				submitHandler: function (form) {
+	                var data = new FormData($(form)[0]);
+	                $.ajax({
+	                    type: 'POST',
+	                    dataType: 'json',
+	                    processData: false, // 告诉jquery不要处理数据
+	                    contentType: false, // 告诉jquery不要设置contentType
+	                    data: data,
+	                    url: '{:url("luodi/luodi_submit")}',
+	                    success: function(json, textStatus, xhr) {
+	                            if (1===json) {
+	                                layer.alert('操作成功', function(){	                                
+	                                    removeIframe();	 	                                    
+	                                    parent.location.reload(); 
+	                                    layer_close();                           
+	                                });
+	                            } else {
+	                                layer.alert('操作失败');
+	                            }
+	                    },
+	                    error: function(xhr, textStatus, errorThrown) {
+	                        layer.alert('操作失败！');
+	                    }
+	                });
+	            }
 			});
-			//submit form
-			$('#form-luodi-add').on(
-					'submit',
-					function() {						
-						if (!$('#domain').val() || !$('#remark').val()) {
-							return false;
-						}
-						var options = {
-							url : "{:url('luodi/luodi_submit')}",
-							dataType : "json",
-							type : "post",
-							clearForm : true,
-							resetForm : true,
-							timeout : 3000,
-							success : ResponseAfterSuccess,
-							error : function() {
-								alert('error!');
-							},
-						};
-						$('#form-luodi-add').ajaxSubmit(options);
-					});
 		});
-		//form submit callback
-		function ResponseAfterSuccess(data) {
-			if (data == 1) {
-				var index = parent.layer.getFrameIndex(window.name);
-				parent.$('.btn-refresh').click();
-				parent.layer.close(index);
-			} else {
-				layer.msg('提交失败!', {
-					icon : 5,
-					time : 1000
-				});
-			}
-		}
 	</script>
 	<!--/请在上方写此页面业务相关的脚本-->
 </body>
