@@ -24,12 +24,13 @@
      .navtop{background-color:#f5f5f5;height:40px;line-height:40px;padding-left:5px;font-size:14px;}
      .navtop img{width:18px;height:16px;margin:0 5px;}
 	.mainct{width:100%;height:400px;}
-	.reflush{line-height: 1.6em; margin-top: 3px;}
+	.reflush{line-height: 1.6em; margin: 5px;}
+	.bbtm{border-bottom:1px solid #ccc;}
 </style>
 </head>
 <body>
 	<div class="page-container">
-		<p class="f-20 text-success navtop">
+		<p class="f-20 text-success navtop bbtm">
 		欢迎使用<img src="https://pic.52112.com/icon/256/20180419/14689/698785.png" alt="nav-icon"/>
 		<font size="4">v1.0</font>&nbsp;后台
 		<a class="btn btn-success radius r reflush"  href="javascript:location.replace(location.href);" title="刷新">
@@ -39,7 +40,7 @@
 		<div id="main2" class="mainct"></div>
 		<div id="main3" class="mainct"></div>
 		<!--/.分享率=分享数/访问数*100%-->
-		<!-- <div id="main4" class="mainct"></div> -->
+		<div id="main4" class="mainct"></div>
 	</div>
 	<footer class="footer mt-20">
 		<div class="container">
@@ -70,7 +71,7 @@
      let friend = [];
      let timeline = [];
      let total = [];
-     //let ratio = [];
+     let ratio = [];
      jsonreturn.key.forEach(function (element,index) {
          friend[index] = {
              name: element,
@@ -123,7 +124,7 @@
                  ]
              }
          };
-         /* ratio[index] = {
+         ratio[index] = {
              name: element,
              type: 'line',
              data: jsonreturn.data[element].ratio,
@@ -139,7 +140,7 @@
                      {type: 'average', name: '平均值'}
                  ]
              }
-         }; */
+         }; 
      });
 	//-----------------------------------------------------------------------------群分享
 	var myChart1= echarts.init(document.getElementById('main1'));
@@ -271,7 +272,7 @@
     myChart3.setOption(option3);
     
     //-----------------------------------------------------------------------------分享率
-    /* var myChart4= echarts.init(document.getElementById('main4'));
+     var myChart4= echarts.init(document.getElementById('main4'));
 	// 指定图表的配置项和数据
     var option4 = {
     	    title: {
@@ -310,8 +311,8 @@
     	    },
     	    series: ratio
     	};
-    // 使用刚指定的配置项和数据显示图表。
-    myChart4.setOption(option4); */
+      // 使用刚指定的配置项和数据显示图表。
+      myChart4.setOption(option4);
 	}
 	</script>
 </body>
