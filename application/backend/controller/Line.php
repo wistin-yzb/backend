@@ -54,7 +54,7 @@ class Line extends controller {
 	}
 	
 	public function line_submit() {
-		$post = input ( 'post.' );
+		$post = input ( 'post.' );		
 		$data = [
 				"name" => $post ['name'],								
 				"remark" => $post ['remark'],
@@ -65,6 +65,10 @@ class Line extends controller {
 		if ($post ['id'] > 0) {
 			$ret = db ( 'line' )->where ( "id", '=', $post ['id'] )->update ( $data );
 		} else {
+			$is_exists = db ( 'line' )->where ( "name", '=', trim($post ['name']) )->find();
+			if($is_exists){
+				exit ( json_encode ( - 2) );
+			}
 			$ret = db ( 'line' )->insert ( $data );
 		}
 		if ($ret) {

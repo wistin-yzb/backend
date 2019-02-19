@@ -369,6 +369,8 @@
 	                                    parent.location.reload(); 
 	                                    layer_close();                           
 	                                });
+	                            }else if(-2===json){
+	                                layer.alert('该服务器名已经存在');
 	                            } else {
 	                                layer.alert('操作失败');
 	                            }

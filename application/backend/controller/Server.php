@@ -100,6 +100,10 @@ class Server extends controller {
 		if ($post ['id'] > 0) {
 			$ret = db ( 'server' )->where ( "id", '=', $post ['id'] )->update ( $data );
 		} else {
+			$is_exists = db ( 'server' )->where ( "name", '=', trim($post ['name']) )->find();
+			if($is_exists){
+				exit ( json_encode ( - 2) );
+			}
 			$ret = db ( 'server' )->insert ( $data );
 		}
 		if ($ret) {

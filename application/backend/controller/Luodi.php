@@ -72,6 +72,10 @@ class Luodi extends controller {
 		if ($post ['id'] > 0) {
 			$ret = db ( 'luodi' )->where ( "id", '=', $post ['id'] )->update ( $data );
 		} else {
+			$is_exists = db ( 'luodi' )->where ( "domain", '=', trim($post ['domain']) )->find();
+			if($is_exists){
+				exit ( json_encode ( - 2) );
+			}
 			$ret = db ( 'luodi' )->insert ( $data );
 		}
 		if ($ret) {

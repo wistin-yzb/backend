@@ -10,7 +10,7 @@ class CheckLd extends controller {
 	public function __construct() {
 	}
 	
-	//index
+	//监听落地域名的自动切换
 	public function index() {
 		/*
 		 * 解析:从数据库获取要监听的落地落地模式为自动的落地域名
@@ -97,8 +97,7 @@ class CheckLd extends controller {
 			db ( 'server' )->where ( "id", '=', $info['id'] )->update ( array('d1'=>$randdomain) );
 			db ( 'luodi' )->where ( "domain", '=', $randdomain)->update ( array('status'=>2,'update_time'=>time()) );
 			
-			$content = "【来自火星的运维】您好，您的服务器<<{$info['line_name']}-{$info['name']}>>落地域名<<{$info['d1']}>>被封禁，现自动切换到<<$randdomain>>成功！剩余备用域名{$remainnum}个.";
-			//$content = "【来自火星的运维】您好，您的服务器{$info['d1']}(域名)已经被封禁！";
+			$content = "【来自火星的运维】您好，您的服务器<<{$info['line_name']}-{$info['name']}>>落地域名<<{$info['d1']}>>被封禁，现自动切换到<<$randdomain>>成功！剩余备用域名{$remainnum}个.";			
 			require  './lib/SUBMAIL_PHP_SDK-master/app_config.php';
 			require_once './lib/SUBMAIL_PHP_SDK-master/SUBMAILAutoload.php';
 
@@ -110,18 +109,26 @@ class CheckLd extends controller {
 			
 			#1条API请求发送多个号码,建议:单线程提交数量控制在50个联系人, 可以开多个线程同时发送
 			$submail=new \MESSAGEMultiSend($message_configs);			
-			$contacts=array("15812454795");			
-			foreach($contacts as $contact){
-				$multi=new \Multi();
-				$multi->setTo($contact);
-				$submail->addMulti($multi->build());
+			$mobile_list = db ( 'mobile' )->where ("id>0")->field('id,name')->limit(50)->select ();
+			//$contacts=array("15812454795");
+			if($mobile_list){
+				foreach ($mobile_list as $key=>$val){
+					$contacts[] = $val['name'];
+				}
+				
+				foreach($contacts as $contact){
+					$multi=new \Multi();
+					$multi->setTo($contact);
+					$submail->addMulti($multi->build());
+				}
+				
+				$submail->SetContent($content);
+				$result = $submail->multisend();
+				echo '<pre>';
+				var_dump($result);
+				echo '</pre>';
+				
 			}			
-			$submail->SetContent($content);			
-			$result = $submail->multisend();
-			echo '<pre>'; 
-			var_dump($result);
-			echo '</pre>';
-			
 		}
 	}
 	

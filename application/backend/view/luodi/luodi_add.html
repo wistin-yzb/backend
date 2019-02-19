@@ -153,6 +153,8 @@
 	                                    parent.location.reload(); 
 	                                    layer_close();                           
 	                                });
+	                            }else if(-2===json){
+	                            	  layer.alert('该落地域名已经存在');
 	                            } else {
 	                                layer.alert('操作失败');
 	                            }
