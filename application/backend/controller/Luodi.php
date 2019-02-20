@@ -14,12 +14,15 @@ class Luodi extends controller {
 	public function  luodi_list(){
 		$post = input ( 'post.' );
 		$n = input('get.n')?input('get.n'):input('post.n');
-		$line_id = input('get.line_id');
+		$line_id = input('line_id');
 		$keywords = @$post ['keywords'] ? trim ( @$post ['keywords'] ) : '';
 		$view = new View ();
 		$where = "`id`>0 ";
 		if ($keywords) {
 			$where .= "and (`domain` like '%$keywords%' )";
+		}
+		if($line_id){
+			$where .= "and (`line_id` =$line_id)";
 		}
 		$list = db ( 'luodi' )->where ( $where )->order('id','desc')->select ();
 		if ($list) {

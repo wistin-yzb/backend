@@ -14,7 +14,7 @@ class Server extends controller {
 	public function  server_list(){
 		$post = input ( 'post.' );
 		$n = input('get.n')?input('get.n'):input('post.n');
-		$line_id = input('get.line_id');
+		$line_id = input('line_id');
 		$is_active = @$post ['is_active'] ? trim ( @$post ['is_active'] ) : 0;
 		$keywords = @$post ['keywords'] ? trim ( @$post ['keywords'] ) : '';
 		$view = new View ();
@@ -24,6 +24,9 @@ class Server extends controller {
 		}
 		if ($keywords) {
 			$where .= "and (`name` like '%$keywords%' )";
+		}
+		if($line_id){
+			$where .= "and (`line_id` =$line_id)";
 		}
 		$list = db ( 'server' )->where ( $where )->order('id','desc')->select ();
 		if ($list) {
@@ -99,7 +102,8 @@ class Server extends controller {
 		];		
 		//控制落地模式只能有一个为自动模式
 		if($post ['d1_model']==2){
-			 db ( 'server' )->where ( "d1_model", '=', 2)->update ( array('d1_model'=>1) );
+			$where_d = "d1_model=2 and line_id={$post ['line_id']}";
+			db ( 'server' )->where ( $where_d)->update ( array('d1_model'=>1) );
 		}
 		if ($post ['id'] > 0) {
 			$ret = db ( 'server' )->where ( "id", '=', $post ['id'] )->update ( $data );

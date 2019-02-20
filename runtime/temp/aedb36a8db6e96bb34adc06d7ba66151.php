@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:142:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\domain\domain_list.html";i:1550565995;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:142:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\domain\domain_list.html";i:1550646317;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -54,7 +54,7 @@
 		<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">				
 				<thead>
-				    <tr role="row"><th scope="col" colspan="14" rowspan="1">x</th></tr>
+				    <tr role="row"><th scope="col" colspan="14" rowspan="1">注：所有案例域名列表</th></tr>
 					<tr class="text-c">
 					    <th width="50"><input type="checkbox"></th>
 						<th width="240">域名</th>

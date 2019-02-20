@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:140:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\luodi\luodi_list.html";i:1550646132;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -25,60 +26,78 @@
 <script type="text/javascript" src="/lib/DD_belatedPNG_0.0.8a-min.js" ></script>
 <script>DD_belatedPNG.fix('*');</script>
 <![endif]-->
-<title>域名分组列表</title>
+<title>落地域名列表</title>
 </head>
 <body>
 <nav class="breadcrumb">
-		<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>域名检测 <span class="c-gray en">&gt;</span>检测域名分组<a
-			class="btn btn-success radius r" style="line-height: 1.6em; margin-top: 3px"
-			href="javascript:location.replace(location.href);" title="刷新"><i class="Hui-iconfont">&#xe68f;</i></a>
+		<i class="Hui-iconfont">&#xe67f;</i> 首页 <span class="c-gray en">&gt;</span>
+		服务器列表 <span class="c-gray en">&gt;</span> <?php echo $n; ?> <a
+			class="btn btn-success radius r"
+			style="line-height: 1.6em; margin-top: 3px"
+			href="javascript:location.replace(location.href);" title="刷新"><i
+			class="Hui-iconfont">&#xe68f;</i></a>
 	</nav>
 	<div class="page-container">
-		<form action="{:url('domain/group_list')}" method="post">
+		<form action="<?php echo url('luodi/luodi_list'); ?>" method="post">
 			<div class="text-c">
-				<input type="text" class="input-text" style="width: 250px" placeholder="分组名称"
-					id="keywords" name="keywords" value="{$filter.keywords}">
+			<button onclick="removeIframe()" class="btn btn-primary radius">关闭选项卡</button> 
+				<input type="text" class="input-text" style="width: 250px" placeholder="域名"
+					id="keywords" name="keywords" value="<?php echo $filter['keywords']; ?>">
 				<button type="submit" class="btn btn-success radius" id="search" name="">
-					<i class="Hui-iconfont">&#xe665;</i> 搜分组
+					<i class="Hui-iconfont">&#xe665;</i> 搜域名
 				</button>
 			</div>
+			<input type="hidden" name="n" value="<?php echo $n; ?>"/>
 		</form>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
-			<span class="l"> <a href="javascript:;" onclick="group_add('添加','{:url('domain/group_add')}','700','500')"
-				class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加</a>
-			</span> <span class="r">共有数据：<strong>{$filter.total|default=0}</strong>条
+			<span class="l"> <a href="javascript:;"
+				onclick="luodi_add('添加域名','<?php echo url('luodi/luodi_add'); ?>?line_id=<?php echo $line_id; ?>','700','500')"
+				class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>
+					添加域名</a>
+			</span> <span class="r">共有数据：<strong><?php echo (isset($filter['total']) && ($filter['total'] !== '')?$filter['total']:0); ?></strong>
+				条
 			</span>
 		</div>
 		<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">				
 				<thead>
-					<tr role="row"><th scope="col" colspan="14" rowspan="1">注：所有案例域名分类</th></tr>
+				<tr role="row"><th scope="col" colspan="14" rowspan="1">注：案例&lt;&lt;<font color="blue"><?php echo $n; ?></font>&gt;&gt;所有落地域名列表</th></tr>
 					<tr class="text-c">
-						<th width="280">分组名称</th>
-						<th width="280">短信通知分组</th>
-						<th width="250">备注</th>						
-						<th width="250">更新时间</th>	
+						<th width="80">ID</th>
+						<th width="200">域名</th>
+						<th width="200">备注</th>
+						<th width="200">解析的ip</th>
+						<th width="250">更新时间</th>												
+						<th width="200">是否可用</th>
 						<th width="350">操作</th>
 					</tr>
 				</thead>
 				<tbody>
-					<!-- {volist name="list" id="vo"} -->
+					<!-- <?php if(is_array($list) || $list instanceof \think\Collection || $list instanceof \think\Paginator): $i = 0; $__LIST__ = $list;if( count($__LIST__)==0 ) : echo "" ;else: foreach($__LIST__ as $key=>$vo): $mod = ($i % 2 );++$i;?> -->
 					<tr class="text-c">
-						<td>{$vo.name}</td>		
-						<td>{$vo.mobile_group_name}</td>
-						<td>{$vo.desc}</td>									
-						<td>{$vo.update_time?$vo.update_time:'-'}</td>											
+						<td><?php echo $vo['id']; ?></td>
+						<td><?php echo $vo['domain']; ?></td>		
+						<td><?php echo $vo['remark']; ?></td>	
+						<td><?php echo $vo['ip']; ?></td>										
+						<td><?php echo !empty($vo['update_time'])?$vo['update_time']:'-'; ?></td>						
+						<td class="td-status">
+						      <?php if($vo['status']==1): ?>
+						       <span class="label label-success radius">可用</span>
+						       <?php else: ?>
+						       <span class="label label-defaunt radius">不可用</span>
+						      <?php endif; ?>
+						</td>
 						<td class="td-manage">							
-							  <a title="编辑" href="javascript:;" onclick="group_edit('修改分组','{:url('domain/group_add')}','{$vo.id}','700','500')"
+							  <a title="编辑" href="javascript:;" onclick="luodi_edit('修改域名','<?php echo url('luodi/luodi_add'); ?>','<?php echo $vo['id']; ?>','700','500')"
 								class="ml-5" style="text-decoration: none">
 								<i class="Hui-iconfont">&#xe6df;</i>
 								</a> 
-								<a title="删除" href="javascript:;" onclick="group_del(this,'{$vo.id}')"
+								<a title="删除" href="javascript:;" onclick="luodi_del(this,'<?php echo $vo['id']; ?>')"
 								class="ml-5" style="text-decoration: none">
 								<i class="Hui-iconfont">&#xe6e2;</i></a>								
 						</td>
 					</tr>
-					<!-- {/volist} -->
+					<!-- <?php endforeach; endif; else: echo "" ;endif; ?> -->
 				</tbody>
 		</table>
 		</div>
@@ -108,25 +127,25 @@
 			'autoWidth': true,
 			"aoColumnDefs": [
 			  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
-			  {"orderable":false,"aTargets":[0,1,2,3]}// 制定列不参与排序
+			  {"orderable":false,"aTargets":[0,1,2,3,4,5]}// 制定列不参与排序
 			]
 		});		
 	});
-	/*分组-添加*/
-	function group_add(title,url,w,h){
+	/*域名-添加*/
+	function luodi_add(title,url,w,h){
 		layer_show(title,url,w,h);
 	}
-	/*分组-编辑*/
-	function group_edit(title,url,id,w,h){
+	/*域名-编辑*/
+	function luodi_edit(title,url,id,w,h){
 		var url = url +'?id='+id;
 		layer_show(title,url,w,h);
 	}
-	/*分组-删除*/
-	function group_del(obj,id){
+	/*域名-删除*/
+	function luodi_del(obj,id){
 		layer.confirm('确认要删除吗？',function(index){
 			$.ajax({
 				type: 'POST',
-				url: '{:url("domain/group_del")}',
+				url: '<?php echo url("luodi/luodi_del"); ?>',
 				dataType: 'json',
 				data:{"ids":id},
 				success: function(data){

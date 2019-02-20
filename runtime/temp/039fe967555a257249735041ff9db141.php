@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:141:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\domain\group_list.html";i:1550560296;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:141:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\domain\group_list.html";i:1550645824;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -53,7 +53,7 @@
 		<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">				
 				<thead>
-					<tr role="row"><th scope="col" colspan="14" rowspan="1">x</th></tr>
+					<tr role="row"><th scope="col" colspan="14" rowspan="1">注：所有案例域名分类</th></tr>
 					<tr class="text-c">
 						<th width="280">分组名称</th>
 						<th width="280">短信通知分组</th>

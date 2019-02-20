@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:142:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\server\server_list.html";i:1550214825;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:142:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\server\server_list.html";i:1550647725;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -55,6 +55,7 @@
 				</button>
 			</div>
 			<input type="hidden" name="n" value="<?php echo $n; ?>"/>
+			<input type="hidden" name="line_id" value="<?php echo $line_id; ?>"/>
 		</form>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
 			<span class="l"> <a href="javascript:;"
@@ -68,18 +69,18 @@
 		<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">				
 				<thead>
-				<tr role="row"><th scope="col" colspan="14" rowspan="1"><?php echo $n; ?></th></tr>
+				<tr role="row"><th scope="col" colspan="14" rowspan="1">注：案例&lt;&lt;<font color="blue"><?php echo $n; ?></font>&gt;&gt;所有服务器列表</th></tr>
 					<tr class="text-c">
 						<th width="100">落地模式</th>
 						<th width="200">服务器名</th>
 						<th width="200">备注</th>
 						<th width="200">外网ip</th>
 						<th width="200">排序</th>
-						<th width="200">域名1</th>
-						<th width="200">域名2</th>
-						<th width="200">域名3</th>
-						<th width="200">域名4</th>
-						<th width="200">域名5</th>
+						<th width="200">域名1<br/><span style="border-top:1px solid #ccc;">入口|落地域名</span></th>
+						<th width="200">域名2<br/><span style="border-top:1px solid #ccc;">分享备用域名</span></th>
+						<th width="200">域名3<br/><span style="border-top:1px solid #ccc;">在线分享域名1</span></th>
+						<th width="200">域名4<br/><span style="border-top:1px solid #ccc;">在线分享域名2</span></th>
+						<th width="200">域名5<br/><span style="border-top:1px solid #ccc;">接口账号名称</span></th>
 						<th width="250">更新时间</th>												
 						<th width="200">使用状态</th>
 						<th width="350">操作</th>

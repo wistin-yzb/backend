@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:141:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\mobile\group_list.html";i:1550560328;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:141:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\mobile\group_list.html";i:1550645789;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -53,7 +53,7 @@
 		<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">				
 				<thead>
-					<tr role="row"><th scope="col" colspan="14" rowspan="1">x</th></tr>
+					<tr role="row"><th scope="col" colspan="14" rowspan="1">注：短信通知手机号分类</th></tr>
 					<tr class="text-c">
 						<th width="200">分组名称</th>
 						<th width="200">备注</th>
