@@ -96,7 +96,11 @@ class Server extends controller {
 				"d5" => $post ['d5'],
 				"is_active" => 1,
 				"update_time" => time ()
-		];
+		];		
+		//控制落地模式只能有一个为自动模式
+		if($post ['d1_model']==2){
+			 db ( 'server' )->where ( "d1_model", '=', 2)->update ( array('d1_model'=>1) );
+		}
 		if ($post ['id'] > 0) {
 			$ret = db ( 'server' )->where ( "id", '=', $post ['id'] )->update ( $data );
 		} else {
@@ -133,7 +137,7 @@ class Server extends controller {
 		}
 		$ret = db ( 'server' )->where ( 'id', $post ['id'] )->find ();
 		if ($ret) {
-			if($ret['update_time'])$ret['update_time'] = date('Y-m-d H:i:s',$ret['update_time']);
+			if($ret['update_time'])$ret['update_time'] = date('Y-m-d H:i:s',time());
 			$ret['is_sync'] = 0;//是否同步,可去掉
 			exit ( json_encode ( $ret) );
 		}

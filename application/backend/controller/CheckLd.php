@@ -76,6 +76,28 @@ class CheckLd extends controller {
 		}
 	}
 	
+	//curl post请求
+	public function curl_post($url,$post_data){		
+		 //初始化
+		  $curl = curl_init();
+		  //设置抓取的url
+		  curl_setopt($curl, CURLOPT_URL, $url);
+		  //设置头文件的信息作为数据流输出
+		  curl_setopt($curl, CURLOPT_HEADER, 1);
+		  //设置获取的信息以文件流的形式返回，而不是直接输出。
+		   curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
+		   //设置post方式提交
+		   curl_setopt($curl, CURLOPT_POST, 1);
+		   //设置post数据
+		   curl_setopt($curl, CURLOPT_POSTFIELDS, http_build_query($post_data));
+		   //执行命令
+		  $data = curl_exec($curl);
+		  //关闭URL请求
+		  curl_close($curl);
+		  //显示获得的数据
+		  var_dump($data);
+	}
+	
 	//短信通知
 	public function send_sms($info){
 		if(!$info){
@@ -95,6 +117,16 @@ class CheckLd extends controller {
 			//更新当前服务器落地域名,并且更新落地域名状态
 			db ( 'luodi' )->where ($where)->field('domain,line_id,status')->select ();
 			db ( 'server' )->where ( "id", '=', $info['id'] )->update ( array('d1'=>$randdomain) );
+			//远程同步数据
+			$remote_url = "http://{$info['public_ip']}/sync.php";
+			$server_data = db ( 'server' )->where ( 'id', $info ['id'] )->find ();
+			if ($server_data) {
+				if($server_data['update_time'])$server_data['update_time'] = date('Y-m-d H:i:s',time());
+				$server_data['is_sync'] = 0;//是否同步,可去掉				
+			}
+			$post_data = array("data"=>$server_data);			
+			$this->curl_post($remote_url,$post_data);
+			#===End
 			db ( 'luodi' )->where ( "domain", '=', $randdomain)->update ( array('status'=>2,'update_time'=>time()) );
 			
 			$content = "【来自火星的运维】您好，您的服务器<<{$info['line_name']}-{$info['name']}>>落地域名<<{$info['d1']}>>被封禁，现自动切换到<<$randdomain>>成功！剩余备用域名{$remainnum}个.";			
@@ -126,8 +158,7 @@ class CheckLd extends controller {
 				$result = $submail->multisend();
 				echo '<pre>';
 				var_dump($result);
-				echo '</pre>';
-				
+				echo '</pre>';				
 			}			
 		}
 	}
