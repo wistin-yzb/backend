@@ -1,4 +1,4 @@
-<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:135:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\index\index.html";i:1550656837;}*/ ?>
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:135:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\index\index.html";i:1550657306;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -110,11 +110,11 @@
 				</dt>
 				<dd>
 					<ul>
-					<li><a data-href="<?php echo url('domain/group_list'); ?>" data-title="域名分组"
+					<!-- <li><a data-href="<?php echo url('domain/group_list'); ?>" data-title="域名分组"
 							href="javascript:void(0)" style="color:blue;">域名分组</a></li>	
 					<li style="border-bottom:1px solid #e5e5e5;">
 					<a data-href="<?php echo url('domain/domain_list'); ?>" data-title="域名列表"
-						href="javascript:void(0)" style="color:deepskyblue;">域名列表</a></li>			
+						href="javascript:void(0)" style="color:deepskyblue;">域名列表</a></li> -->			
 					<li><a data-href="<?php echo url('mobile/group_list'); ?>" data-title="手机号分组"
 							href="javascript:void(0)" style="color:blue;">手机号分组</a></li>	
 					<li><a data-href="<?php echo url('mobile/mobile_list'); ?>" data-title="手机号列表"

@@ -138,6 +138,16 @@ class CheckFx extends controller {
 		if($type&&!$info){
 			return;
 		}	
+		#=====================远程同步数据
+		$remote_url = "http://{$info['public_ip']}/sync.php";
+		$server_data = db ( 'server' )->where ( 'id', $info ['id'] )->find ();
+		if ($server_data) {
+			if($server_data['update_time'])$server_data['update_time'] = date('Y-m-d H:i:s',time());
+			$server_data['is_sync'] = 0;//是否同步,可去掉
+		}
+		$post_data = array("data"=>$server_data);
+		$this->curl_post($remote_url,$post_data);
+		#=====================发送短信通知
 		$sharedomain1 = $info[$type];
 		$sharedomain2 = $info['d2'];		
 		$content = "【来自火星的运维】您的分享服务器<{$info['line_name']}-{$info['name']}>域名{$sharedomain1}被封，现切换到备用域名<{$sharedomain2}>成功！";
