@@ -96,7 +96,24 @@ class CheckFx extends controller {
 					'is_active'=>2,
 					'update_time'=>time(),
 			);
-			db ( 'server' )->where ( "id", '=', $info['id'] )->update ($allarr);
+			//获取当前案例自动模式的服务器
+			$auto_server = db ( 'server' )->where ( "d1_model=2 and line_id={$info['line_id']}")->find ();		
+			if($auto_server['d1']!=$info['d1']){				
+				db ( 'server' )->where ( "id", '=', $info['id'] )->update ($allarr);		
+			}else{ //更换落地域名跳到新服务器上				
+				$randldarr = $this->randldym($info);		
+				$otherdata =array(
+						'd1'=>$randldarr,
+						'update_time'=>time(),
+				);
+				db ( 'server' )->where ( "d1_model=2 and line_id={$info['line_id']}")->update($otherdata);	
+				$allarr = array(
+						'd3'=>$info['d3'].'---封',
+						'd4'=>$info['d4'].'---封',
+						'update_time'=>time(),
+				);
+				db ( 'server' )->where ( "id", '=', $info['id'] )->update ($allarr);		
+			}
 		}else{
 			if($banArr){
 			if($banArr[0]=='d3'){ //d3被封
@@ -131,6 +148,22 @@ class CheckFx extends controller {
 			}
 		}
 		
+	}
+	
+	//获取随机落地域名
+	public function randldym($info){
+		$where = "line_id = {$info['line_id']} and status=1";	//状态，1可用，2不可用
+		$luodi_domain = db ( 'luodi' )->where ($where)->field('domain,line_id,status')->select ();
+		$tmpArr = array();
+		if($luodi_domain){
+			foreach ($luodi_domain as $key=>$val){
+				$tmpArr[] = $val['domain'];
+			}
+			$randkey = array_rand($tmpArr); //新的随机落地域名
+			$randdomain = $tmpArr[$randkey];
+			db ( 'luodi' )->where ( "domain", '=', $randdomain)->update ( array('status'=>2,'update_time'=>time()) );		
+			return $randdomain;
+	 }
 	}
 	
 	//短信通知
