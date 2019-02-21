@@ -32,6 +32,8 @@ class Line extends controller {
 				'total' => count ( $list )
 		];
 		$view->filter = $filter;		
+		$domain = "http://".$_SERVER['HTTP_HOST'];
+		$view->domain= $domain;		
 		return $view->fetch ( 'line/line_list' );
 	}
 	

@@ -68,7 +68,7 @@
 		<div class="mt-20">
 		<table class="table table-border table-bordered table-hover table-bg table-sort">				
 				<thead>
-				<tr role="row"><th scope="col" colspan="14" rowspan="1">注：案例&lt;&lt;<font color="blue">{$n}</font>&gt;&gt;所有服务器列表</th></tr>
+				<tr role="row"><th scope="col" colspan="14" rowspan="1">注：案例&lt;&lt;<font color="#5a98de">{$n}</font>&gt;&gt;所有服务器列表</th></tr>
 					<tr class="text-c">
 						<th width="100">落地模式</th>
 						<th width="200">服务器名</th>
@@ -79,7 +79,7 @@
 						<th width="200">域名2<br/><span style="border-top:1px solid #ccc;">分享备用域名</span></th>
 						<th width="200">域名3<br/><span style="border-top:1px solid #ccc;">在线分享域名1</span></th>
 						<th width="200">域名4<br/><span style="border-top:1px solid #ccc;">在线分享域名2</span></th>
-						<th width="200">域名5<br/><span style="border-top:1px solid #ccc;">接口账号名称</span></th>
+						<th width="200">域名5<br/><span style="border-top:1px solid #ccc;">微信接口账号</span></th>
 						<th width="250">更新时间</th>												
 						<th width="200">使用状态</th>
 						<th width="350">操作</th>
@@ -122,7 +122,10 @@
 							  {/if}											  
 								<a title="同步" style="text-decoration:none" class="ml-5" href="javascript:void(0);" onclick="server_sync({$vo.id})"><i>📡</i></a>
 								<a title="编辑" href="javascript:;" onclick="server_edit('修改服务器','{:url('server/server_add')}','{$vo.id}','750','700')" class="ml-5" style="text-decoration: none">
-								<i class="Hui-iconfont">&#xe6df;</i></a> 								
+								<i class="Hui-iconfont">&#xe6df;</i></a> 	
+								<a title="删除" href="javascript:;" onclick="server_del(this,'{$vo.id}')"
+								class="ml-5" style="text-decoration: none">
+								<i class="Hui-iconfont">&#xe6e2;</i></a>							
 						</td>
 					</tr>
 					<!-- {/volist} -->

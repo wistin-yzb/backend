@@ -101,7 +101,7 @@ class CheckFx extends controller {
 			if($banArr){
 			if($banArr[0]=='d3'){ //d3被封
 				$d3NewArr = array(
-						'd2'=>'',
+						//'d2'=>'',
 						'd3'=>$info['d2'],
 						'update_time'=>time(),
 				);
@@ -115,7 +115,7 @@ class CheckFx extends controller {
 				}
 			}elseif ($banArr[0]=='d4'){//d4被封
 				$d4NewArr = array(
-						'd2'=>'',
+						//'d2'=>'',
 						'd4'=>$info['d2'],
 						'update_time'=>time(),
 				);

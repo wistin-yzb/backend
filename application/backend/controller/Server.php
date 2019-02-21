@@ -148,4 +148,16 @@ class Server extends controller {
 		exit ( json_encode ( - 1 ) );
 	}
 	
+	public function server_del() {
+		$post = input ( 'post.' );
+		if (! $post) {
+			exit ( json_encode ( - 1 ) );
+		}
+		$idsArr = explode ( ',', $post ['ids'] );
+		$ret = db ( 'server' )->delete ( $idsArr );
+		if ($ret) {
+			exit ( json_encode ( 1 ) );
+		}
+		exit ( json_encode ( - 1 ) );
+	}
 }
