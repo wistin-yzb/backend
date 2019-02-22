@@ -1,3 +1,4 @@
+<?php if (!defined('THINK_PATH')) exit(); /*a:1:{s:135:"F:\xampp-win32-5.6.3-0-VC11-installerroot\xammp\htdocs\www\www.backend.devp\backend\public/../application/backend\view\index\index.html";i:1550827972;}*/ ?>
 <!DOCTYPE HTML>
 <html>
 <head>
@@ -48,7 +49,7 @@
 								class="Hui-iconfont">&#xe6d5;</i></a>
 							<ul class="dropDown-menu menu radius box-shadow">
 								<li><a href="javascript:;"
-									onclick="article_add('添加案例','{:url('line/line_add')}')"><i
+									onclick="article_add('添加案例','<?php echo url('line/line_add'); ?>')"><i
 										class="Hui-iconfont">&#xe616;</i> 案例</a></li>												
 							</ul></li>
 					</ul>
@@ -63,7 +64,7 @@
 								<!-- <li><a href="javascript:;" onClick="myselfinfo()">个人信息</a></li> -->
 								<li><a href="javascript:layer.msg('切换账户');">切换账户</a></li>
 								<li><a href="javascript:;" onClick="clearcache()">清除缓存</a></li>
-								<li><a href="{:url('Index/loginout')}">退出</a></li>
+								<li><a href="<?php echo url('Index/loginout'); ?>">退出</a></li>
 							</ul></li>
 						<li id="Hui-msg">
 						<a href="#" title="消息">
@@ -95,9 +96,9 @@
 				</dt>
 				<dd>
 					<ul>
-					<li><a data-href="{:url('line/line_list')}" data-title="案例管理"
+					<li><a data-href="<?php echo url('line/line_list'); ?>" data-title="案例管理"
 							href="javascript:void(0)">案例管理</a></li>	
-					<!-- <li><a data-href="{:url('vipcn/vipcn_list')}" data-title="公众号列表demo"
+					<!-- <li><a data-href="<?php echo url('vipcn/vipcn_list'); ?>" data-title="公众号列表demo"
 						href="javascript:void(0)">公众号列表demo</a></li> -->						
 					</ul>
 				</dd>
@@ -109,14 +110,14 @@
 				</dt>
 				<dd>
 					<ul>
-					<!-- <li><a data-href="{:url('domain/group_list')}" data-title="域名分组"
+					<!-- <li><a data-href="<?php echo url('domain/group_list'); ?>" data-title="域名分组"
 							href="javascript:void(0)" style="color:blue;">域名分组</a></li>	
 					<li style="border-bottom:1px solid #e5e5e5;">
-					<a data-href="{:url('domain/domain_list')}" data-title="域名列表"
+					<a data-href="<?php echo url('domain/domain_list'); ?>" data-title="域名列表"
 						href="javascript:void(0)" style="color:deepskyblue;">域名列表</a></li> -->			
-					<li><a data-href="{:url('mobile/group_list')}" data-title="手机号分组"
+					<li><a data-href="<?php echo url('mobile/group_list'); ?>" data-title="手机号分组"
 							href="javascript:void(0)" style="color:blue;">手机号分组</a></li>	
-					<li><a data-href="{:url('mobile/mobile_list')}" data-title="手机号列表"
+					<li><a data-href="<?php echo url('mobile/mobile_list'); ?>" data-title="手机号列表"
 						href="javascript:void(0)" style="color:deepskyblue;">手机号列表</a></li>											
 					</ul>
 				</dd>
@@ -128,7 +129,7 @@
 				</dt>
 				<dd>
 					<ul>	
-					<li><a data-href="{:url('dnspod/dnspod_list')}" data-title="控制台"
+					<li><a data-href="<?php echo url('dnspod/dnspod_list'); ?>" data-title="控制台"
 						href="javascript:void(0)" >控制台</a></li>											
 					</ul>
 				</dd>
@@ -143,7 +144,7 @@
 		<div id="Hui-tabNav" class="Hui-tabNav hidden-xs">
 			<div class="Hui-tabNav-wp">
 				<ul id="min_title_list" class="acrossTab cl">
-					<li class="active"><span title="我的桌面" data-href="{:url('Index/welcome')}">我的桌面</span>
+					<li class="active"><span title="我的桌面" data-href="<?php echo url('Index/welcome'); ?>">我的桌面</span>
 						<em></em></li>
 				</ul>
 			</div>
@@ -157,7 +158,7 @@
 		<div id="iframe_box" class="Hui-article">
 			<div class="show_iframe">
 				<div style="display: none" class="loading"></div>
-				<iframe scrolling="yes" frameborder="0" src="{:url('Index/welcome')}"></iframe>
+				<iframe scrolling="yes" frameborder="0" src="<?php echo url('Index/welcome'); ?>"></iframe>
 			</div>
 		</div>
 	</section>
@@ -211,7 +212,7 @@
         function clearcache(){
         	$.ajax({
     			type: 'POST',
-    			url: '{:url("index/clearcache")}',
+    			url: '<?php echo url("index/clearcache"); ?>',
     			dataType: 'json',
     			data:{},
     			success: function(data){
