@@ -44,7 +44,7 @@
 			</div>
 		</form>
 		<div class="cl pd-5 bg-1 bk-gray mt-20">
-			{if $filter.keywords neq ''}
+			{if $filter.keywords neq '' and $is_exists eq true}
 			<span class="l"> <a href="javascript:;" onclick="dnspod_add('添加记录','{:url('dnspod/dnspod_add')}?domain={$filter.keywords}','600','350')"
 				class="btn btn-primary radius"><i class="Hui-iconfont">&#xe600;</i>添加记录</a>
 			</span>
@@ -69,7 +69,7 @@
 						<td>{$vo.name}</td>		
 						<td>{$vo.value}</td>										
 						<td>{$vo.updated_on?$vo.updated_on:'-'}</td>											
-						<td class="td-manage">														
+						<td class="td-manage">								
 								<a title="删除" href="javascript:;" onclick="dnspod_del(this,'{$vo.id}')"
 								class="ml-5" style="text-decoration: none">
 								<i class="Hui-iconfont">&#xe6e2;</i></a>								
@@ -101,31 +101,29 @@
 			"bStateSave": true,//状态保存
 			'searching': false,
 			'ordering': false,
-			'info': true,
+			'info': false,
 			'autoWidth': true,
 			"aoColumnDefs": [
 			  //{"bVisible": false, "aTargets": [ 3 ]} //控制列的隐藏显示
 			  {"orderable":false,"aTargets":[0,1,2,3]}// 制定列不参与排序
 			]
 		});		
+		if("{$filter.keywords}"&&"{$is_exists}"==false){
+			layer.alert('域名不存在');
+		}
 	});
 	/*域名解析-添加*/
 	function dnspod_add(title,url,w,h){
 		layer_show(title,url,w,h);
 	}
-	/*域名解析-编辑*/
-	function  dnspod_edit(title,url,id,w,h){
-		var url = url +'?id='+id;
-		layer_show(title,url,w,h);
-	}
 	/*域名解析-删除*/
-	function  dnspod_del(obj,id){
+	function  dnspod_del(obj,record_id){
 		layer.confirm('确认要删除吗？',function(index){
 			$.ajax({
 				type: 'POST',
 				url: '{:url("dnspod/dnspod_del")}',
 				dataType: 'json',
-				data:{"ids":id},
+				data:{"record_id":record_id,"domain":"{$filter.keywords}"},
 				success: function(data){
 					if(data==1){
 						$(obj).parents("tr").remove();
