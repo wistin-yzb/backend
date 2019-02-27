@@ -122,11 +122,16 @@ class CheckFx extends controller {
 							'd3'=>$info['d2'],
 							'update_time'=>time(),
 					);
-				}else{
-					$d3NewArr = array(
+				}else{ 
+					/* $d3NewArr = array(
 							'd3'=>$info['d4'],
 							'update_time'=>time(),
-					);
+					); */
+					$d3NewArr = array(
+							'd2'=>$info['d2'].'---封',
+							'd3'=>$info['d3'].'---封',
+							'update_time'=>time(),
+					); 
 				}
 				db ( 'server' )->where ( "id", '=', $info['id'] )->update ($d3NewArr);
 				//发送短信通知
@@ -137,7 +142,7 @@ class CheckFx extends controller {
 					$this->send_sms($type,$info);
 				}
 			}elseif ($banArr[0]=='d4'){//d4被封
-				if($info['d4']!=$info['d2']){
+				/* if($info['d4']!=$info['d2']){
 						$d4NewArr = array(
 								'd4'=>$info['d2'],
 								'update_time'=>time(),
@@ -147,7 +152,11 @@ class CheckFx extends controller {
 							'd4'=>$info['d3'],
 							'update_time'=>time(),
 					);
-				}
+				} */
+				$d4NewArr = array(
+						'd4'=>$info['d4'].'---封',
+						'update_time'=>time(),
+				);
 				db ( 'server' )->where ( "id", '=', $info['id'] )->update ($d4NewArr);
 				//发送短信通知
 				$filename = 'forbbiden/' . $info['d4']. '.txt';

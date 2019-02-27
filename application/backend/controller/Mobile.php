@@ -164,7 +164,7 @@ class Mobile extends controller {
 		}
 		$data = [
 				"name" => $post ['name'],
-				"desc" => $post ['desc'],
+				"desc" => $post ['desc']?$post ['desc']:'*xx',
 				"group_id" => implode(',', $group_id),
 				"group_name" => implode(',',$group_name),
 				"update_time"=>time(),
