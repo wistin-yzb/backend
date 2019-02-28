@@ -126,7 +126,11 @@ class CheckLd extends controller {
 			$this->curl_post($remote_url,$post_data);
 			
 			#====================发送短信通知
-			$content = "【来自火星的运维】您好，您的服务器<<{$info['line_name']}-{$info['name']}>>落地域名<<{$info['d1']}>>被封禁，现自动切换到<<$randdomain>>成功！剩余备用域名{$remainnum}个.";			
+			if($remainnum==0){
+				$content = "【来自火星的运维】您好，您的服务器<<{$info['line_name']}-{$info['name']}>>落地域名<<{$info['d1']}>>被封禁，并且没有可用备用域名";
+			}else{
+			    $content = "【来自火星的运维】您好，您的服务器<<{$info['line_name']}-{$info['name']}>>落地域名<<{$info['d1']}>>被封禁，现自动切换到<<$randdomain>>成功！剩余备用域名{$remainnum}个.";
+			}
 			require  './lib/SUBMAIL_PHP_SDK-master/app_config.php';
 			require_once './lib/SUBMAIL_PHP_SDK-master/SUBMAILAutoload.php';
 			#1条API请求发送单个号码

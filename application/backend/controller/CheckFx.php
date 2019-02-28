@@ -89,86 +89,78 @@ class CheckFx extends controller {
 				$banArr[] = $k;
 			}
 		}	
-		if(count($banArr)>1){ //直接停用服务器,直接停用服务器，并且更换自动监控的落地域名，跳到另一台服务器上。
-			$allarr = array(
-					'd3'=>$info['d3'].'---封',
-					'd4'=>$info['d4'].'---封',
-					'is_active'=>2,
-					'update_time'=>time(),
-			);
-			//获取当前案例自动模式的服务器
-			$auto_server = db ( 'server' )->where ( "d1_model=2 and line_id={$info['line_id']}")->find ();		
-			if($auto_server['d1']!=$info['d1']){				
-				db ( 'server' )->where ( "id", '=', $info['id'] )->update ($allarr);		
-			}else{ //更换落地域名跳到新服务器上				
-				$randldarr = $this->randldym($info);		
-				$otherdata =array(
-						'd1'=>$randldarr,
-						'update_time'=>time(),
-				);
-				db ( 'server' )->where ( "d1_model=2 and line_id={$info['line_id']}")->update($otherdata);	
-				$allarr = array(
-						'd3'=>$info['d3'].'---封',
-						'd4'=>$info['d4'].'---封',
-						'update_time'=>time(),
-				);
-				db ( 'server' )->where ( "id", '=', $info['id'] )->update ($allarr);		
-			}
-		}else{
-			if($banArr){
-			if($banArr[0]=='d3'){ //d3被封
-				if($info['d3']!=$info['d2']){
-					$d3NewArr = array(
-							'd3'=>$info['d2'],
-							'update_time'=>time(),
-					);
-				}else{ 
-					/* $d3NewArr = array(
-							'd3'=>$info['d4'],
-							'update_time'=>time(),
-					); */
-					$d3NewArr = array(
-							'd2'=>$info['d2'].'---封',
-							'd3'=>$info['d3'].'---封',
-							'update_time'=>time(),
-					); 
+		if(count($banArr)>0){
+				if(@$banArr[0]=='d4'||@$banArr[1]=='d4'){ //d4被封										
+							$filename = 'forbbiden/' . $info['d4']. '.txt';
+							if(!file_exists($filename)){
+								file_put_contents($filename,$info['d4']);
+								//更新数据
+								$d4NewArr = array(
+										'd4'=>$info['d4'].'---封',
+										'update_time'=>time(),
+								);
+								db ( 'server' )->where ( "id", '=', $info['id'] )->update ($d4NewArr);
+								//短信通知
+								$type = 'd4';
+								$smstype = 1;
+								$this->send_sms($type,$info,$smstype);
+							}
+				}elseif(@$banArr[0]=='d3'){//d3被封
+							if($info['d3']!=$info['d2']){ //第1次被封														
+									$filename = 'forbbiden/' . $info['d3']. '.txt';
+									if(!file_exists($filename)){
+										file_put_contents($filename,$info['d3']);
+										//更新数据
+										$d3NewArr = array(
+												'd3'=>$info['d2'],
+												'update_time'=>time(),
+										);
+										db ( 'server' )->where ( "id", '=', $info['id'] )->update ($d3NewArr);
+										//短信通知
+										$type = 'd3';
+										$smstype = 4;
+										$this->send_sms($type,$info,$smstype);
+									}
+							}else{ //第2次被封										
+								$filename = 'forbbiden/' . $info['d3']. '.txt';
+								if(!file_exists($filename)){
+									file_put_contents($filename,$info['d3']);									
+									//获取当前案例自动模式的服务器信息
+									$auto_server = db ( 'server' )->where ( "d1_model=2 and line_id={$info['line_id']}")->find ();
+									if($auto_server['d1']!=$info['d1']){//不被监控,直接停掉当前服务器
+										$allarr = array(
+												'd2'=>$info['d2'].'---封',
+												'd3'=>$info['d3'].'---封',
+												'is_active'=>2,
+												'update_time'=>time(),
+										);
+										db ( 'server' )->where ( "id", '=', $info['id'] )->update ($allarr);
+									}else{//被监控,直接停掉当前服务器,并更换落地域名跳到新服务器上		
+										//更新数据
+										$allarr = array(
+												'd2'=>$info['d2'].'---封',
+												'd3'=>$info['d3'].'---封',
+												'is_active'=>2,
+												'update_time'=>time(),
+										);
+										db ( 'server' )->where ( "id", '=', $info['id'] )->update ($allarr);
+										//落地跳转其他服务器
+										$randldarr = $this->randldym($info);
+										$otherdata =array(
+												'd1'=>$randldarr,
+												'is_active'=>1,
+												'update_time'=>time(),
+										);
+										db ( 'server' )->where ( "d1_model=2 and line_id={$info['line_id']}")->update($otherdata);	
+									}
+									//短信通知
+									$type = 'd3';
+									$smstype = 1;
+									$this->send_sms($type,$info,$smstype);
+								}
+							}							
 				}
-				db ( 'server' )->where ( "id", '=', $info['id'] )->update ($d3NewArr);
-				//发送短信通知
-				$filename = 'forbbiden/' . $info['d3']. '.txt';
-				if(!file_exists($filename)){
-					file_put_contents($filename,$info['d3']);
-					$type = 'd3';
-					$this->send_sms($type,$info);
-				}
-			}elseif ($banArr[0]=='d4'){//d4被封
-				/* if($info['d4']!=$info['d2']){
-						$d4NewArr = array(
-								'd4'=>$info['d2'],
-								'update_time'=>time(),
-						);
-				}else{
-					$d4NewArr = array(
-							'd4'=>$info['d3'],
-							'update_time'=>time(),
-					);
-				} */
-				$d4NewArr = array(
-						'd4'=>$info['d4'].'---封',
-						'update_time'=>time(),
-				);
-				db ( 'server' )->where ( "id", '=', $info['id'] )->update ($d4NewArr);
-				//发送短信通知
-				$filename = 'forbbiden/' . $info['d4']. '.txt';
-				if(!file_exists($filename)){
-					file_put_contents($filename,$info['d4']);
-					$type = 'd4';
-					$this->send_sms($type,$info);
-				}
-			}
-			}
-		}
-		
+		}		
 	}
 	
 	//获取随机落地域名
@@ -188,8 +180,8 @@ class CheckFx extends controller {
 	}
 	
 	//短信通知
-	public function send_sms($type,$info){
-		if($type&&!$info){
+	public function send_sms($type,$info,$smstype){
+		if(!$type&&!$info&&!$smstype){
 			return;
 		}	
 		#=====================远程同步数据
@@ -204,7 +196,11 @@ class CheckFx extends controller {
 		#=====================发送短信通知
 		$sharedomain1 = $info[$type];
 		$sharedomain2 = $info['d2'];		
-		$content = "【来自火星的运维】您的分享服务器<{$info['line_name']}-{$info['name']}>域名{$sharedomain1}被封，现切换到备用域名<{$sharedomain2}>成功！";
+		if($smstype==4){
+			$content = "【来自火星的运维】您的分享服务器<{$info['line_name']}-{$info['name']}>域名{$sharedomain1}被封，现切换到备用域名<{$sharedomain2}>成功！";
+		}elseif($smstype==1){
+			$content = "【来自火星的运维】您好，您的服务器{$sharedomain1}(域名)已经被封禁！";
+		}
 		require  './lib/SUBMAIL_PHP_SDK-master/app_config.php';
 		require_once './lib/SUBMAIL_PHP_SDK-master/SUBMAILAutoload.php';
 		#1条API请求发送多个号码,建议:单线程提交数量控制在50个联系人, 可以开多个线程同时发送
