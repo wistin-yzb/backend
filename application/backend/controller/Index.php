@@ -170,4 +170,17 @@ class Index extends controller {
 		}
 		
 	}
+	
+	//远程获取案例自动监控模式的当前落地域名
+	public function get_luodi_domain($line_id=0){
+		if($line_id<=0){
+			exit(json_encode('10017'));
+		}
+		$where = array(
+				'line_id'=>$line_id,
+				'd1_model'=>2,
+		);
+		$info = db ( 'server' )->where ( $where )->value('d1');
+		exit(json_encode($info));
+	}
 }
